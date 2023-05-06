@@ -2,6 +2,12 @@ from models.model import Claims, db
 from flask import request, jsonify
 from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
 
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import JWTManager
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_jwt_identity
+import json
+
 # Making sure that the request parsed fits the below guidelines
 put_args = reqparse.RequestParser()
 # currently no good error message, only 500
@@ -24,13 +30,29 @@ update_args.add_argument("Amount", type=float, help = "Amount is required", requ
 update_args.add_argument("Purpose", type=str, help = "Purpose is required", required = True)
 update_args.add_argument("DepartmentCode", type=int, help = "Key in Department Code if available")
 
-# @marshal_with(resource_fields)
+@ jwt_required
 def get(id):
+        
+        currUserId = get_jwt_identity()
+
+        if (id != currUserId):
+            return jsonify(
+                {
+                    "code": 401,
+                    "message": "Unauthorized"
+                }
+        ), 500
         # Store query results
-        result = Claims.query.filter_by(ClaimID = id)
+        else:
+             result = Claims.query.filter_by(ClaimID = id)
 
         if not result:
-            abort(409, message = "Client's claim could not be found")
+            return jsonify(
+             {
+                  "code": 404,
+                  "body": "Employee not found"
+             }
+            )
         return jsonify(
              {
                   "code": 200,
@@ -39,6 +61,7 @@ def get(id):
         )
 
 # @marshal_with(resource_fields)
+@ jwt_required
 def put(id):
     # Get arguments from put_args as defined above, where missing fields will have error
     args = put_args.parse_args()
@@ -58,6 +81,7 @@ def put(id):
 
     return Client, 201 # 201 means created, by default 201 is okay!
 
+@ jwt_required
 def patch(id):
         args = update_args.parse_args()
         result = Claims.query.filter_by(ClaimID = id).first()
@@ -89,6 +113,7 @@ def patch(id):
 
         return result, 201
 
+@ jwt_required
 def delete(id):
         args = put_args.parse_args()
 
