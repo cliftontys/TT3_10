@@ -1,8 +1,12 @@
 import React from 'react'
+import AddClaimModal from "../components/modals/AddClaimModal";
 
 const Header = () => {
   return (
-    <div>Header</div>
+    <div className='header'>
+        <h3>Welcome</h3>
+        <AddClaimModal/>
+    </div>
   )
 }
 
