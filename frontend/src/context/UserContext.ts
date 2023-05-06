@@ -5,7 +5,7 @@ export type UserContextType = {
   user: User | undefined;
   setUser: (user: User) => void;
   jwt: string | undefined;
-  setJwt: (token: string) => void;
+  setJwt: (token: string | undefined) => void;
 };
 
 /**

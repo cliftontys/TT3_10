@@ -1,9 +1,22 @@
-import React from "react";
+import React, {useContext} from 'react'
 import AddClaimModal from "../components/modals/AddClaimModal";
-import { Layout, Button } from "antd";
+import { Layout, Space, Menu, Button } from "antd";
+import { useNavigate } from "react-router-dom"
+import UserContext from '../context/UserContext';
 
 const Header = () => {
   const { Header } = Layout;
+
+  const {jwt, setJwt} = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    console.log("Logged out");
+    navigate("/");
+    alert("You have logged out of the application.");
+    setJwt(undefined);
+  }
 
   return (
     <Header
@@ -19,7 +32,7 @@ const Header = () => {
       <h3>List of Claims</h3>
       <div style={{ display: "flex", gap: 5 }}>
         <AddClaimModal />
-        <Button>Logout</Button>
+        <Button onClick={handleLogout}>Logout</Button>
       </div>
     </Header>
   );
