@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { useNavigate } from 'react-router-dom';
 import {Button, Checkbox, Form, Input} from 'antd';
 import "./LoginPage.css";
 import DBSLogo from "../assets/cdnlogo.com_dbs-bank.svg";
+import UserContext from '../context/UserContext';
 
 const LoginPage = () => {
   const [employeeId, setEmployeeId] = useState<string>("");
@@ -10,15 +11,15 @@ const LoginPage = () => {
   const [isFailedLogin, setIsFailedLogin] = useState(false);
   const [isRememberMe, setIsRememberMe] = useState(false);
 
+  const {jwt, setJwt} = useContext(UserContext);
   const navigate = useNavigate();
 
   // If user has cookie, redirect them immediately to dashboard
-  useEffect(() => {
-    const existingToken = localStorage.getItem("dbsJWT");
-    if (existingToken) {
-      navigate("/ListClaims");
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (jwt) {
+  //     navigate("/ListClaims");
+  //   }
+  // }, [])
 
   const handleLogin = async (): Promise<void> => {
     // send login request to backend
@@ -40,7 +41,7 @@ const LoginPage = () => {
       }).then((response) => response.json()).then((response) => {
         console.log(response);
         if (response.code == 200) {
-          localStorage.setItem("dbsJWT", response.token);
+          setJwt(response.token);
           navigate("/ListClaims");
         } else {
           setIsFailedLogin(true);

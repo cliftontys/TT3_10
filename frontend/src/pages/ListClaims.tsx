@@ -3,13 +3,24 @@ import EditClaimModal from "../components/modals/EditClaimModal";
 import Header from "./Header";
 
 import projectExpenseClaims, { ProjectExpenseClaim } from '../data/projectExpenseClaims';
-import { useState, useEffect, } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import UserContext from '../context/UserContext';
+import { useNavigate } from "react-router-dom"
+
 
 import { Table, Button } from "antd";
 
 const ListClaims = () => {
 
   const claims = projectExpenseClaims;
+  const {jwt, setJwt} = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!jwt) {
+      navigate("/");
+    }
+  }, [])
 
   const column = [
     { title: 'Claim ID', dataIndex: 'ClaimID', key:'ClaimID', width: 150 },
