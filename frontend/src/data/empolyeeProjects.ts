@@ -1,4 +1,4 @@
-export type EmployeeProjects = {
+export type EmployeeProject = {
     ProjectID: number;
     EmployeeID: number;
     ProjectName: string;
@@ -7,7 +7,7 @@ export type EmployeeProjects = {
     ProjectLeadID: number;
 }
 
-const employeeProjects: EmployeeProjects[] = [
+const employeeProjects: EmployeeProject[] = [
   {
     ProjectID: 10001,
     EmployeeID: 10001,
