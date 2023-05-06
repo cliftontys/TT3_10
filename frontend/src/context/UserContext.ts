@@ -4,6 +4,8 @@ import { User } from "../data/users";
 export type UserContextType = {
   user: User | undefined;
   setUser: (user: User) => void;
+  jwt: string | undefined;
+  setJwt: (token: string) => void;
 };
 
 /**
@@ -12,6 +14,8 @@ export type UserContextType = {
 const UserContext = createContext<UserContextType>({
   user: undefined,
   setUser: () => {},
+  jwt: undefined,
+  setJwt: () => {},
 });
 
 export default UserContext;
