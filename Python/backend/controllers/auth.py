@@ -83,11 +83,27 @@ def put(id):
 
 @ jwt_required
 def patch(id):
+        
+        currUserId = get_jwt_identity()
+
+        if (id != currUserId):
+            return jsonify(
+                {
+                    "code": 401,
+                    "message": "Unauthorized"
+                }
+        ), 500
+
         args = update_args.parse_args()
         result = Claims.query.filter_by(ClaimID = id).first()
         if not result:
-            abort(404, message = "Cannot update a claim that does not exist")
-
+            return jsonify(
+             {
+                  "code": 404,
+                  "body": "Employee not found"
+             }
+            )
+        
         if args['ProjectID']:
             result.name = args["ProjectID"]
         
@@ -111,7 +127,12 @@ def patch(id):
 
         db.session.commit()
 
-        return result, 201
+        return jsonify(
+             {
+                  "code": 201,
+                  "body": [row.json() for row in result]
+             }
+        )
 
 @ jwt_required
 def delete(id):
