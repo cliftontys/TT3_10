@@ -6,12 +6,14 @@ from flask_jwt_extended import JWTManager
 from models.model import db
 from routes.auth import authRoute
 
+
+
 app = Flask(__name__)
 api = Api(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://techtrek3_10:techtrek3_10@techtrek.crjcxyz2pcxm.ap-southeast-2.rds.amazonaws.com:3306/techtrek'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:techtrek3_10@127.0.0.1:3306/expenseclaimsdata'
 
-
+app.config["JWT_SECRET_KEY"] = "super-secret"
 jwt = JWTManager(app)
 
 # Do only once, else replace table
