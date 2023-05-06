@@ -1,18 +1,18 @@
-export type ProjectExpenseClaims = {
-  ClaimID: String;
-  ProjectID: String;
-  EmployeeID: String;
-  CurrencyID: String;
-  ExpenseDate: String;
-  Amount: String;
-  Purpose: String;
-  ChargeToDefaultDept: String;
-  AlternativeDeptCode: String;
-  Status: String;
-  LastEditedClaimDate: String;
+export type ProjectExpenseClaim = {
+  ClaimID: string;
+  ProjectID: string;
+  EmployeeID: string;
+  CurrencyID: string;
+  ExpenseDate: string;
+  Amount: string;
+  Purpose: string;
+  ChargeToDefaultDept: string;
+  AlternativeDeptCode: string;
+  Status: string;
+  LastEditedClaimDate: string;
 };
 
-const projectExpenseClaims: ProjectExpenseClaims[] = [
+const projectExpenseClaims: ProjectExpenseClaim[] = [
   {
     ClaimID: "11147",
     ProjectID: "10001",
