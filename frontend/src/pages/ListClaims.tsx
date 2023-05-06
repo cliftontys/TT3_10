@@ -2,34 +2,14 @@ import React from "react";
 import EditClaimModal from "../components/modals/EditClaimModal";
 import Header from "./Header";
 
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import projectExpenseClaims, { ProjectExpenseClaim } from '../data/projectExpenseClaims';
 import { useState, useEffect, } from 'react';
-import Button from 'react';
 
-import { Table } from "antd";
+import { Table, Button } from "antd";
 
 const ListClaims = () => {
 
-  // const [claims, setClaims] = useState([]);
-
   const claims = projectExpenseClaims;
-
-  // useEffect(() => {
-  //   const getClaims = () => {
-  //     const currentClaims = projectExpenseClaims;
-  //     // currentClaims.forEach((claim) => {
-  //     //   setClaims((row) => [
-  //     //     ...row,
-  //     //   ]);
-  //     // });
-  //     setClaims(currentClaims);
-  //     console.log(claims)
-  //   };
-
-  //   getClaims();
-  // }, []);
-
 
   const column = [
     { title: 'Claim ID', dataIndex: 'ClaimID', key:'ClaimID', width: 150 },
@@ -43,7 +23,12 @@ const ListClaims = () => {
       title: 'Actions',
       dataIndex: 'Actions',
       key: 'Actions',
-      render: (text:string, record:ProjectExpenseClaim) => <><EditClaimModal currentClaim={record} /><button>Delete</button></>,
+      width: 250,
+      render: (text:string, record:ProjectExpenseClaim) => 
+      <>
+      <EditClaimModal currentClaim={record} />
+      <Button type="primary">Delete</Button>
+      </>,
     },
   ]
   
@@ -51,7 +36,7 @@ const ListClaims = () => {
     
     <div>
       <Header></Header>
-      <Table columns={column} dataSource={claims} />;
+      <Table className="listClaims" columns={column} dataSource={claims} />;
     </div>
   )
 }
