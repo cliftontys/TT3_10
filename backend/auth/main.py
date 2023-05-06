@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from models.model import db
 from routes.auth import authRoute
+from routes.claims import claimsRoute
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -25,6 +26,7 @@ db.init_app(app)
 
 
 app.register_blueprint(authRoute, url_prefix="/")
+app.register_blueprint(claimsRoute, url_prefix="/claims")
 
 # Start app in testing mode
 if __name__ == "__main__":
