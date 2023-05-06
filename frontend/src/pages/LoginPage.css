@@ -1,0 +1,15 @@
+.LoginPage{
+   align-items: center;
+   display: block;
+}
+
+.InputFields {
+    width: 50%;
+    align-items: center;
+    margin-left: 30px;
+}
+
+.LoginPageHeader {
+    width: 50%;
+    background-color: red;
+}
