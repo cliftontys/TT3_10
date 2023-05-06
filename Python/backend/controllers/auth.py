@@ -5,10 +5,6 @@ from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
 # Making sure that the request parsed fits the below guidelines
 put_args = reqparse.RequestParser()
 # currently no good error message, only 500
-#put_args.add_argument("Name", type=str, help = "Customer name is required", required = True) 
-#put_args.add_argument("ID", type=str, help = "Customer acocunt ID", required = True)
-#put_args.add_argument("Balance", type=str, help = "Customer balance", required = True)
-#put_args.add_argument("Bank", type=str, help = "POSB or DBS")
 put_args.add_argument("ClaimID", type=int, help = "ClaimID is required", required = True) 
 put_args.add_argument("ProjectID", type=int, help = "ProjectID is required", required = True) 
 put_args.add_argument("CurrencyID", type=str, help = "Currency ID is required", required = True)
@@ -19,10 +15,6 @@ put_args.add_argument("Purpose", type=str, help = "Purpose is required", require
 put_args.add_argument("DepartmentCode", type=int, help = "Key in Department Code if available")
 
 update_args = reqparse.RequestParser()
-#update_args.add_argument("Name", type=str, help = "Customer name is required")
-#update_args.add_argument("ID", type=str, help = "Customer acocunt ID")
-#update_args.add_argument("Balance", type=str, help = "Customer balance")
-#update_args.add_argument("Bank", type=str, help = "POSB or DBS")
 update_args.add_argument("ClaimID", type=int, help = "ClaimID is required", required = True) 
 update_args.add_argument("ProjectID", type=int, help = "ProjectID is required", required = True) 
 update_args.add_argument("CurrencyID", type=str, help = "Currency ID is required", required = True)
@@ -31,13 +23,6 @@ update_args.add_argument("ExpenseDate", type=int, help = "Expense Date is requir
 update_args.add_argument("Amount", type=float, help = "Amount is required", required = True)
 update_args.add_argument("Purpose", type=str, help = "Purpose is required", required = True)
 update_args.add_argument("DepartmentCode", type=int, help = "Key in Department Code if available")
-
-'''resource_fields = {
-    'ID' : fields.Integer,
-    "Name" : fields.String,
-    "Balance" : fields.Integer,
-    "Bank" : fields.String
-}'''
 
 # @marshal_with(resource_fields)
 def get(id):
