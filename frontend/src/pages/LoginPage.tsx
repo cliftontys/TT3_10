@@ -1,15 +1,16 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { dummyUser } from "../data/users";
+import {Button, Checkbox} from 'antd';
+import "./LoginPage.css";
+import DBSLogo from "../assets/cdnlogo.com_dbs-bank.svg";
 
 const LoginPage = () => {
 
-  const [LoginDetails, setLoginDetails] = useState({
-    employeeId: "",
-    password: "",
-    isFailedLogin: false,
-    isRememberMe: false
-  })
+  const [employeeId, setEmployeeId] = useState("");
+  const [password, setPassword] = useState("");
+  const [isFailedLogin, setIsFailedLogin] = useState(false);
+  const [isRememberMe, setIsRememberMe] = useState(false);
 
   const navigate = useNavigate();
 
@@ -19,15 +20,12 @@ const LoginPage = () => {
     // if success, navigate to /ListClaims
 
     // DUMMY VALIDATION
-    if (LoginDetails.employeeId == dummyUser.EmployeeID) { 
+    if (employeeId === dummyUser.EmployeeID) { 
       console.log("Login Success!");
       navigate("/ListClaims");
     } else {
       console.log("Login failed!!");
-      setLoginDetails((prev) => ({
-        ...prev,
-        isFailedLogin: true
-      }));
+      setIsFailedLogin(true);
     }
 
     /*
@@ -42,53 +40,50 @@ const LoginPage = () => {
 
   const handleEmployeeIdInput = (event: React.FormEvent<HTMLInputElement>): void => {
     const newEmployeeIdValue = event.currentTarget.value;
-    setLoginDetails((prev) => ({
-      ...prev,
-      employeeId: newEmployeeIdValue
-    }));
+    setEmployeeId(newEmployeeIdValue);
   }
 
   const handlePasswordInput = (event: React.FormEvent<HTMLInputElement>): void => {
     const newPasswordValue = event.currentTarget.value;
-    setLoginDetails((prev) => ({
-      ...prev,
-      password: newPasswordValue
-    }));
+    setPassword(newPasswordValue)
   }
 
   const renderInvalid = () => {
-    if (LoginDetails.isFailedLogin) {
+    if (isFailedLogin) {
       return <p>Invalid username or password!</p>;
     }
     return null;
   }
 
   const toggleRememberMe = () => {
-    setLoginDetails((prev) => ({
-      ...prev,
-      isRememberMe: !LoginDetails.isRememberMe
-    }));
+    setIsRememberMe(!isRememberMe)
   }
 
   return (
-    <div>
-      <h1>Login To DBS Portal</h1>
-      <div>
-        <div>
-          <label>Employee Id:</label>
-          <input type="text" name="employeeId" placeholder="Employee ID" onChange={(event) => handleEmployeeIdInput(event)}></input>
-        </div>
-        <div>
-          <label>Password:</label>
-          <input type="password" name="password" placeholder="Password" onChange={(event) => handlePasswordInput(event)}></input>
-        </div>
-        <div>
-          <input type="checkbox" name="RememberMe" checked={LoginDetails.isRememberMe} onChange={toggleRememberMe}/>
-          <label htmlFor="RememberMe">Remember me</label>
-        </div>
-        <button onClick={() => handleLogin()}>Login</button>
-        <div>{renderInvalid()}</div>
+    <div className="LoginPage">
+      <div className="header">
+        <img src={DBSLogo}/>
+        <h1>Login To DBS Portal</h1>
       </div>
+      <div className="InpuFieldsWrapper">
+        <div className="InputFields">
+          <div>
+            <label>Employee Id:</label>
+            <input type="text" name="employeeId" placeholder="Employee ID" onChange={(event) => handleEmployeeIdInput(event)}></input>
+          </div>
+          <div>
+            <label>Password:</label>
+            <input type="password" name="password" placeholder="Password" onChange={(event) => handlePasswordInput(event)}></input>
+          </div>
+          <div>
+            <Checkbox name="RememberMe" checked={isRememberMe} onChange={toggleRememberMe}/>
+            <label htmlFor="RememberMe">Remember me</label>
+          </div>
+          <Button type="primary" onClick={() => handleLogin()}>Login</Button>
+          <div>{renderInvalid()}</div>
+        </div>
+      </div>
+      
     </div>
   )
 }
