@@ -30,14 +30,14 @@ class Claims(db.Model):
     ExpenseDate = db.Column(db.String(255))
     Amount = db.Column(db.Float)
     Purpose = db.Column(db.String(150))
-    ChargeToDefaultDept = db.column(db.Boolean)
-    AlternativeDeptCode = db.column(db.String(20))
-    Status = db.column(db.String(20))
-    LastEditedClaimDate = db.column(db.String(255))
+    ChargeToDefaultDept = db.Column(db.Boolean)
+    AlternativeDeptCode = db.Column(db.String(20))
+    Status = db.Column(db.String(20))
+    LastEditedClaimDate = db.Column(db.String(255))
 
-class Currency(db.model):
-    CurrencyID = db.column(db.Integer, primary_key = True)
-    ExchangeRate = db.column(db.Float)
+class Currency(db.Model):
+    CurrencyID = db.Column(db.Integer, primary_key=True)
+    ExchangeRate = db.Column(db.Float)
 
 class Employee(db.Model, UserMixin):
     EmployeeID = db.Column(db.Integer, primary_key=True)
