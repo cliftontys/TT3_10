@@ -25,18 +25,19 @@ const ListClaims = () => {
       key: 'Actions',
       width: 250,
       render: (text:string, record:ProjectExpenseClaim) => 
-      <>
+      <div style={{display:"flex", gap:5}}>
       <EditClaimModal currentClaim={record} />
       <Button type="primary">Delete</Button>
-      </>,
+      </div>,
     },
   ]
+
   
   return (
     
     <div>
       <Header></Header>
-      <Table className="listClaims" columns={column} dataSource={claims} />;
+      <Table className="listClaims" columns={column} dataSource={claims}  />;
     </div>
   )
 }
