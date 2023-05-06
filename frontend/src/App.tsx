@@ -9,9 +9,10 @@ import { User } from './data/users';
 
 function App() {
   const [user, setUser] = useState<User>();
+  const [jwt, setJwt] = useState<string>();
 
   return (
-    <UserContext.Provider value={{user, setUser}}>
+    <UserContext.Provider value={{user, setUser, jwt, setJwt}}>
       <div className="App">
         <BrowserRouter>
           <Routes>
