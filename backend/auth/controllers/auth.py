@@ -30,7 +30,7 @@ def login():
     try:
         ID = request.json.get("ID", None)
         password = request.json.get("Password", None)
-
+        print(ID)
         existingUser = Employee.query.filter( (Employee.EmployeeID == ID) & (Employee.Password == password) ).first(); 
 
         if not existingUser:
