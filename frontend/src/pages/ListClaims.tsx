@@ -9,7 +9,26 @@ import { Table, Button } from "antd";
 
 const ListClaims = () => {
 
-  const claims = projectExpenseClaims;
+  const [claims, setClaims] = useState([]);
+
+  useEffect(() => {
+    const getClaims = async () => {
+      const claimsFromServer = await fetchClaims()
+      setClaims(claimsFromServer)
+
+      console.log("get claims", claimsFromServer)
+    }
+
+    getClaims()
+  }, [])
+
+  const fetchClaims = async () => {
+    const res = await fetch(`http://localhost:5000/claims`);
+    const data = await res.json();
+    return data;
+  }
+
+  // const claims = projectExpenseClaims;
 
   const column = [
     { title: 'Claim ID', dataIndex: 'ClaimID', key:'ClaimID', width: 150 },
