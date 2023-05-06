@@ -6,7 +6,7 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import get_jwt_identity
-import json
+
 
 # Making sure that the request parsed fits the below guidelines
 put_args = reqparse.RequestParser()
@@ -130,7 +130,7 @@ def patch(id):
         return jsonify(
              {
                   "code": 201,
-                  "body": [row.json() for row in result]
+                  "body": "Record updated"
              }
         )
 
