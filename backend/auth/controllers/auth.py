@@ -45,7 +45,7 @@ def login():
         # "LastName":existingUser.LastName}
 
         access_token = create_access_token(
-            identity=existingUser.UserID)#, additional_claims=additional_claims)
+            identity=existingUser.EmployeeID)#, additional_claims=additional_claims)
 
         return jsonify({
             "code": 200,
