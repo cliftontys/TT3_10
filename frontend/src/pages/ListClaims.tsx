@@ -1,70 +1,57 @@
 import React from "react";
-import AddClaimModal from "../components/modals/AddClaimModal";
 import EditClaimModal from "../components/modals/EditClaimModal";
+import Header from "./Header";
+
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import projectExpenseClaims from '../data/projectExpenseClaims';
+import projectExpenseClaims, { ProjectExpenseClaim } from '../data/projectExpenseClaims';
 import { useState, useEffect, } from 'react';
 import Button from 'react';
 
+import { Table } from "antd";
+
 const ListClaims = () => {
 
-  const [claims, setClaims] = useState([]);
+  // const [claims, setClaims] = useState([]);
 
-  useEffect(() => {
-    const getClaims = () => {
-      const currentClaims = projectExpenseClaims;
-      currentClaims.forEach((claim) => {
-        setClaims((row) => [
-          ...row,
-        ]);
-      });
-      console.log(currentClaims)
-    };
+  const claims = projectExpenseClaims;
 
-    getClaims();
-  }, []);
+  // useEffect(() => {
+  //   const getClaims = () => {
+  //     const currentClaims = projectExpenseClaims;
+  //     // currentClaims.forEach((claim) => {
+  //     //   setClaims((row) => [
+  //     //     ...row,
+  //     //   ]);
+  //     // });
+  //     setClaims(currentClaims);
+  //     console.log(claims)
+  //   };
 
-  const renderEditButton = () => {
-    return (
-        <strong>
-            <button
-                color="primary"
-                style={{ marginLeft: 16 }}
-              >
-                Edit
-            </button>
-            <button
-                color="primary"
-                style={{ marginLeft: 16 }}
-              >
-                Delete
-            </button>
-        </strong>
-    )
-}
+  //   getClaims();
+  // }, []);
+
+
+  const column = [
+    { title: 'Claim ID', dataIndex: 'ClaimID', key:'ClaimID', width: 150 },
+    { title: 'Project ID', dataIndex: 'ProjectID', key: 'ProjectID', width: 150 },
+    { title: 'Currency ID', dataIndex: 'CurrencyID', key:'CurrencyID', width: 150 },
+    { title: 'Amount', dataIndex: 'Amount', key:'Amount', width: 150 },
+    { title: 'Purpose', dataIndex: 'Purpose', key:'Purpose', width: 150 },
+    { title: 'Last Edited Claim Date', dataIndex: 'LastEditedClaimDate', key:'LastEditedClaimDate',width: 200 },
+    { title: 'Status', dataIndex: 'Status', key:'Status', width: 150 },
+    {
+      title: 'Actions',
+      dataIndex: 'Actions',
+      key: 'Actions',
+      render: (text:string, record:ProjectExpenseClaim) => <><EditClaimModal currentClaim={record} /><button>Delete</button></>,
+    },
+  ]
   
-
-  const columns: GridColDef[] = [
-    { field: 'ClaimID', headerName: 'Claim ID', width: 150 },
-    { field: 'ProjectID', headerName: 'Project ID', width: 150 },
-    { field: 'CurrencyID', headerName: 'Currency', width: 150 },
-    { field: 'Amount', headerName: 'Amount', width: 150 },
-    { field: 'Purpose', headerName: 'Purpose', width: 150 },
-    { field: 'LastEditedClaimDate', headerName: 'Last Edited Claim Date', width: 200 },
-    { field: 'Status', headerName: 'Status', width: 150 },
-    { field: 'Actions',headerName: 'Actions', width: 150, renderCell: renderEditButton},
-  ];
-
   return (
     
     <div>
-      <AddClaimModal />
-      <EditClaimModal currentClaim={projectExpenseClaims[0]} />
-      <DataGrid className="listClaims" 
-      rows={projectExpenseClaims} 
-      columns={columns} 
-      getRowId={(row) => Number(row.ClaimID)} 
-      pageSizeOptions={[5, 10]}/>
+      <Header></Header>
+      <Table columns={column} dataSource={claims} />;
     </div>
   )
 }

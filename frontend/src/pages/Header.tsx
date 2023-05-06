@@ -1,10 +1,11 @@
 import React from 'react'
+import AddClaimModal from "../components/modals/AddClaimModal";
 
 const Header = () => {
   return (
     <div className='header'>
         <h3>Welcome</h3>
-        <button className="add">Add Claim</button>
+        <AddClaimModal/>
     </div>
   )
 }
