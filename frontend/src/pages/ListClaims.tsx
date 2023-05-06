@@ -27,7 +27,7 @@ const ListClaims = () => {
       render: (text:string, record:ProjectExpenseClaim) => 
       <div style={{display:"flex", gap:5}}>
       <EditClaimModal currentClaim={record} />
-      <Button type="primary">Delete</Button>
+      <Button type="primary" style={{backgroundColor:'red'}}>Delete</Button>
       </div>,
     },
   ]
